@@ -8,7 +8,7 @@ if (!defined('_MYCDN_')) {
 }
 
 // original resource host
-$original_host = '<original_host>';
+$original_host = '<origin_host>';
 
 // allowed extensions
 $allowed_extension = array();
