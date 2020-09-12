@@ -14,7 +14,7 @@ function save_and_display_file($target_host, $target_path)
     $local_path = pathinfo($target_path, PATHINFO_DIRNAME);
     $local_filename = basename($target_path);
     $local_filename_ext = pathinfo($local_filename, PATHINFO_EXTENSION);
-    if (!in_array($local_filename_ext, $allowed_extension)) {
+    if (!in_array(strtolower($local_filename_ext), $allowed_extension)) {
         die('error'); // extension check
     }
 
@@ -41,10 +41,12 @@ function save_and_display_file($target_host, $target_path)
         }
         file_put_contents($local_fullpath, $result);
         $content_type = mime_content_type($local_fullpath);
+        $content_length = filesize($local_fullpath);
 
         // display
         header('my-cache-status: MISS');
-        header("Content-Type: {$content_type}");
+        header("content-type: {$content_type}");
+        header("content-length: {$content_length}");
         echo $result;
     } else {
         error_404();
